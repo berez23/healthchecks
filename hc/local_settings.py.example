@@ -1,6 +1,12 @@
+#DEBUG = False
+SECRET_KEY = 'CHANGEME!!!'
+REGISTRATION_OPEN = False
+ALLOWED_HOSTS = ['*']
+TIME_ZONE = "Europe/Rome"
+
 # SITE_ROOT = "https://my-monitoring-project.com"
-# SITE_NAME = "My Monitoring Project"
-# DEFAULT_FROM_EMAIL = "noreply@my-monitoring-project.com"
+SITE_NAME = "Unical Healthchecks"
+DEFAULT_FROM_EMAIL = "noreply-healthchecks@unical.it"
 
 # Uncomment to use Postgres:
 # DATABASES = {
@@ -25,8 +31,52 @@
 # }
 
 # Email
-# EMAIL_HOST = "your-smtp-server-here.com"
-# EMAIL_PORT = 587
+EMAIL_HOST = "smtpservizi.unical.it"
+EMAIL_PORT = 587
 # EMAIL_HOST_USER = "username"
 # EMAIL_HOST_PASSWORD = "password"
-# EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True
+
+ADMINS = [('Giuseppe De Marco', 'giuseppe.demarco@unical.it'),
+          ('Francesco Filicetti', 'francesco.filicetti@unical.it'),]
+
+
+# LOGGING
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            # exact format is not important, this is the minimum information
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+        'detailed': {
+            'format': '[%(asctime)s] %(message)s [(%(levelname)s)]' # %(name)s.%(funcName)s:%(lineno)s]'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'formatter': 'detailed',
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'formatter': 'detailed',
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    }
+}
