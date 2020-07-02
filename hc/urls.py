@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
@@ -22,3 +23,8 @@ urlpatterns = [
     path("", include("hc.front.urls")),
     path("", include("hc.payments.urls")),
 ]
+
+if 'saml2_sp' in settings.INSTALLED_APPS:
+    import saml2_sp.urls
+    urlpatterns += path('saml2', include((saml2_sp.urls, 'djangosaml2',))),
+

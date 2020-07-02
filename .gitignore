@@ -5,3 +5,5 @@ __pycache__/
 hc.sqlite
 hc/local_settings.py
 static-collected
+saml2_sp/certificates/private.key
+saml2_sp/certificates/public.cert

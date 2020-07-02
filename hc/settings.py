@@ -56,6 +56,10 @@ INSTALLED_APPS = (
     "hc.api",
     "hc.front",
     "hc.payments",
+
+    # SAML2 SP
+    'djangosaml2',
+    'saml2_sp',
 )
 
 MIDDLEWARE = (
@@ -69,10 +73,17 @@ MIDDLEWARE = (
     "hc.accounts.middleware.TeamAccessMiddleware",
 )
 
-AUTHENTICATION_BACKENDS = (
-    "hc.accounts.backends.EmailBackend",
-    "hc.accounts.backends.ProfileBackend",
-)
+if 'saml2_sp' in INSTALLED_APPS or \
+   'djangosaml2' in INSTALLED_APPS:
+
+    from saml2_sp.pysaml2 import *
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'djangosaml2.backends.Saml2Backend')
+else:
+    AUTHENTICATION_BACKENDS = (
+        "hc.accounts.backends.EmailBackend",
+        "hc.accounts.backends.ProfileBackend")
 
 ROOT_URLCONF = "hc.urls"
 
