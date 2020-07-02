@@ -1,0 +1,5 @@
+# healthchecks
+0 * */5 * * root certbot renew --post-hook "systemctl reload nginx"
+12 0 * * 1 wert /opt/healthcheck.env/bin/python3 /opt/healthchecks/manage.py sendreports
+12 0 * 1 * wert /opt/healthcheck.env/bin/python3 /opt/healthchecks/manage.py prunepings
+

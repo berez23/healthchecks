@@ -1,0 +1,18 @@
+[program:django-healthchecks-sendalert]
+environment=PATH="/opt/healthcheck.env/bin:%(ENV_PATH)s"
+directory=/opt/healthchecks
+command = /opt/healthchecks/manage.py sendalerts
+user = wert
+group = wert
+stopasgroup = true
+autostart=true
+
+# logging
+stdout_logfile=/var/log/uwsgi/hc-sendalerts.log
+stdout_logfile_maxbytes=1000MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=1000MB
+stdout_events_enabled=false
+stderr_logfile=/var/log/uwsgi/hc-sednalerts.err
+stderr_logfile_maxbytes=1000MB
+stderr_logfile_backups=10
