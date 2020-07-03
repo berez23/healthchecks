@@ -193,7 +193,7 @@ def check_token(request, username, token):
             return _redirect_after_login(request)
 
         request.session["bad_link"] = True
-        return redirect("hc-login")
+        return redirect(settings.LOGIN_URL)
 
     return render(request, "accounts/check_token_submit.html")
 
