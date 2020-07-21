@@ -62,7 +62,7 @@ INSTALLED_APPS = (
     'saml2_sp',
 )
 
-MIDDLEWARE = (
+MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -71,7 +71,7 @@ MIDDLEWARE = (
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "hc.accounts.middleware.TeamAccessMiddleware",
-)
+]
 
 if 'saml2_sp' in INSTALLED_APPS or 'djangosaml2' in INSTALLED_APPS:
     from saml2_sp.pysaml2 import *
@@ -152,12 +152,16 @@ if os.getenv("DB") == "mysql":
     }
 
 TIME_ZONE = "UTC"
-
-USE_I18N = False
-
-USE_L10N = False
-
+USE_I18N = True
+USE_L10N = True
 USE_TZ = True
+
+# GETTEXT LOCALIZATION
+MIDDLEWARE.append('django.middleware.locale.LocaleMiddleware')
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+)
+#
 
 SITE_ROOT = os.getenv("SITE_ROOT", "http://localhost:8000")
 SITE_NAME = os.getenv("SITE_NAME", "Mychecks")
