@@ -97,6 +97,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "hc.front.context_processors.branding",
                 "hc.payments.context_processors.payments",
             ]
         },
