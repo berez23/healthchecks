@@ -49,6 +49,7 @@ CHANNEL_KINDS = (
     ("msteams", "Microsoft Teams"),
     ("shell", "Shell Command"),
     ("zulip", "Zulip"),
+    ("spike", "Spike"),
 )
 
 PO_PRIORITIES = {-2: "lowest", -1: "low", 0: "normal", 1: "high", 2: "emergency"}
@@ -456,6 +457,8 @@ class Channel(models.Model):
             return transports.Shell(self)
         elif self.kind == "zulip":
             return transports.Zulip(self)
+        elif self.kind == "spike":
+            return transports.Spike(self)
         else:
             raise NotImplementedError("Unknown channel kind: %s" % self.kind)
 
@@ -582,7 +585,14 @@ class Channel(models.Model):
     def discord_webhook_url(self):
         assert self.kind == "discord"
         doc = json.loads(self.value)
-        return doc["webhook"]["url"]
+        url = doc["webhook"]["url"]
+
+        # Discord migrated to discord.com,
+        # and is dropping support for discordapp.com on 7 November 2020
+        if url.startswith("https://discordapp.com/"):
+            url = "https://discord.com/" + url[23:]
+
+        return url
 
     @property
     def discord_webhook_id(self):

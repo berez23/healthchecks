@@ -169,7 +169,6 @@
                 {% elif page != "login" %}
                 <!-- <li><a href="{% url 'hc-login' %}">Sign In</a></li> -->
                 <li><a href="{% url 'djangosaml2:saml2_login' %}">{% trans "Sign In" %}</a></li>
-
                 {% endif %}
 
                 {% if registration_open %}

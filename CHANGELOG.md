@@ -10,10 +10,14 @@ All notable changes to this project will be documented in this file.
 - Added /api/v1/checks/uuid/flips/ endpoint (#349)
 - In the cron expression dialog, show a human-friendly version of the expression
 - Indicate a started check with a progress spinner under status icon (#338)
+- Added "Docs > Reliability Tips" page
+- Spike.sh integration (#402)
+- Updated Discord integration to use discord.com instead of discordapp.com
 
 ### Bug Fixes
 - Removing Pager Team integration, project appears to be discontinued
 - Sending a test notification updates Channel.last_error (#391)
+- Handle HTTP 429 responses from Matrix server when joining a Matrix room
 
 ## v1.15.0 - 2020-06-04
 
