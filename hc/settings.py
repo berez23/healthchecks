@@ -73,6 +73,8 @@ MIDDLEWARE = [
     "hc.accounts.middleware.TeamAccessMiddleware",
 ]
 
+MIDDLEWARE.append('djangosaml2.middleware.SamlSessionMiddleware')
+
 if 'saml2_sp' in INSTALLED_APPS or 'djangosaml2' in INSTALLED_APPS:
     from saml2_sp.pysaml2 import *
     AUTHENTICATION_BACKENDS = (
